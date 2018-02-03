@@ -99,7 +99,7 @@ public class CheckerBoardFXMLController implements Initializable, Startable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About");
         alert.setHeaderText("CheckerBoard");
-        alert.setContentText("This application was developed by Alyssa Nielsen for CS4330/7330 at the University of Missouri.  This is based on the code provided at http://code.makery.ch/blog/javafx-dialogs-official/");
+        alert.setContentText("This application was developed by Alyssa Nielsen for CS4330/7330 at the University of Missouri.");
         alert.showAndWait();
     }
 
