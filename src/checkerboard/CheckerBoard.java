@@ -5,13 +5,15 @@
  */
 package checkerboard;
 
+import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
  *
- * @author Alyssa Nielsen ANNHX3 - 14211627
+ * @author Alyssa Nielsen
+ *
  */
 public class CheckerBoard {
 
@@ -23,8 +25,8 @@ public class CheckerBoard {
     private Color lightColor;
     private Color darkColor;
     private AnchorPane anchorPane;
-    public double rectSideLength;
     private Rectangle rectangle;
+    private double squareSideLength;
     private double squareWidth;
     private double squareHeight;
 
@@ -33,24 +35,25 @@ public class CheckerBoard {
     }
 
     public CheckerBoard(int numRows, int numCols, double boardWidth, double boardHeight, Color lightColor, Color darkColor) {
-            this.numRows = numRows;
-            this.numCols = numCols;
-            this.boardWidth = boardWidth;
-            this.boardHeight = boardHeight;
-            this.lightColor = lightColor;
-            this.darkColor = darkColor;
-            if ((boardWidth / numCols) > (boardHeight / numRows)) {
-                rectSideLength = (boardHeight / numRows);
-            } else {
-                rectSideLength = (boardWidth / numCols);
-            }
+        this.numRows = numRows;
+        this.numCols = numCols;
+        this.boardWidth = boardWidth;
+        this.boardHeight = boardHeight;
+        this.lightColor = lightColor;
+        this.darkColor = darkColor;
+        if ((boardWidth / numCols) > (boardHeight / numRows)) {
+            squareSideLength = (boardHeight / numRows);
+        } else {
+            squareSideLength = (boardWidth / numCols);
+        }
     }
 
     public AnchorPane build() {
         anchorPane = new AnchorPane();
-        anchorPane.setMinSize(boardWidth, boardHeight);
+
         double squareWidth = (boardWidth / numCols);
         double squareHeight = (boardHeight / numRows);
+
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numCols; col++) {
                 rectangle = new Rectangle();
@@ -58,13 +61,11 @@ public class CheckerBoard {
                 rectangle.setHeight(squareHeight);
                 rectangle.setX(squareWidth * col);
                 rectangle.setY(squareHeight * row);
-
-                if ((col % 2 == 0 && row % 2 != 0) || (col % 2 != 0 && row % 2 == 0)) {
-                    rectangle.setFill(darkColor);
-                } else {
+                if ((row % 2) == (col % 2)) {
                     rectangle.setFill(lightColor);
+                } else {
+                    rectangle.setFill(darkColor);
                 }
-
                 anchorPane.getChildren().add(rectangle);
             }
         }
@@ -72,10 +73,7 @@ public class CheckerBoard {
     }
 
     public AnchorPane getBoard() {
-        //if(anchorPane == null){
-            return anchorPane;
-       // }
-       // return null;
+        return anchorPane;
     }
 
     public int getNumRows() {
@@ -88,7 +86,6 @@ public class CheckerBoard {
 
     public double getWidth() {
         return boardWidth;
-
     }
 
     public double getHeight() {
@@ -108,6 +105,6 @@ public class CheckerBoard {
     }
 
     public double getRectangleHeight() {
-        return rectSideLength;
+        return squareSideLength;
     }
 }

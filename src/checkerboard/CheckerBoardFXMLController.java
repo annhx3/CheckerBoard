@@ -23,7 +23,8 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Alyssa
+ * @author Alyssa Nielsen
+ *
  */
 public class CheckerBoardFXMLController implements Initializable, Startable {
 
@@ -31,13 +32,9 @@ public class CheckerBoardFXMLController implements Initializable, Startable {
     private int numRows;
     private int numCols;
     private String menuItemId;
-    public double menuHeight;
-    private double anchorWidth;
-    private double anchorHeight;
-    private double stageHeight;
-        private double stageWidth;
-
-
+    private double boardWidth;
+    private double boardHeight;
+    CheckerBoard checkerBoard;
 
     @FXML
     private AnchorPane anchorPane;
@@ -51,39 +48,29 @@ public class CheckerBoardFXMLController implements Initializable, Startable {
     private MenuItem board3x3;
     @FXML
     private MenuBar menu;
-    CheckerBoard checkerBoard;
-
     @FXML
     private VBox vBox;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println(menu.getHeight());
     }
 
     @Override
     public void start(Stage stage) {
         this.stage = stage;
-        menuHeight = menu.getHeight();
-        stageHeight = stage.getHeight();
-        stageWidth = stage.getWidth();
-        anchorWidth = stage.getWidth();
-        anchorHeight = (stageHeight - menuHeight);
-        checkerBoard = new CheckerBoard(8, 8, anchorWidth, anchorHeight);
+        boardWidth = stage.getWidth();
+        boardHeight = anchorPane.getHeight();
+        checkerBoard = new CheckerBoard(8, 8, boardWidth, boardHeight);
 
         ChangeListener<Number> lambdaChangeListener = (ObservableValue<? extends Number> observable, Number oldValue, final Number newValue) -> {
 
-            checkerBoard = new CheckerBoard(checkerBoard.getNumRows(), checkerBoard.getNumCols(), stage.getWidth(), (stage.getHeight() - menuHeight), checkerBoard.getLightColor(), checkerBoard.getDarkColor());
-
+            checkerBoard = new CheckerBoard(checkerBoard.getNumRows(), checkerBoard.getNumCols(), stage.getWidth(), anchorPane.getHeight(), checkerBoard.getLightColor(), checkerBoard.getDarkColor());
             refresh();
-
         };
 
         this.stage.widthProperty().addListener(lambdaChangeListener);
         this.stage.heightProperty().addListener(lambdaChangeListener);
-
         refresh();
-
     }
 
     @FXML
@@ -91,10 +78,20 @@ public class CheckerBoardFXMLController implements Initializable, Startable {
         refresh();
     }
 
+    private void refresh() {
+        clearAnchorPane();
+        anchorPane.setPrefSize(boardWidth, boardHeight);
+        anchorPane.getChildren().addAll(checkerBoard.build());
+    }
+
     @FXML
     private void handleClear(ActionEvent event) {
         System.out.println("clear");
         clearAnchorPane();
+    }
+
+    private void clearAnchorPane() {
+        anchorPane.getChildren().clear();
     }
 
     @FXML
@@ -106,33 +103,23 @@ public class CheckerBoardFXMLController implements Initializable, Startable {
         alert.showAndWait();
     }
 
-    private void refresh() {
-        clearAnchorPane();
-        //anchorPane.setPrefSize(stageWidth, stageHeight);
-        anchorPane.getChildren().addAll(checkerBoard.build());
-    }
-
-    private void clearAnchorPane() {
-        anchorPane.getChildren().clear();
-    }
-
     @FXML
-    private void changeSize(ActionEvent event) {
+    private void handleBoardSize(ActionEvent event) {
         MenuItem menuItem = (MenuItem) (event.getSource());
         menuItemId = menuItem.getId();
 
         switch (menuItemId) {
             case "board16x16":
-                checkerBoard = new CheckerBoard(16, 16, checkerBoard.getWidth(), checkerBoard.getHeight(), checkerBoard.getLightColor(), checkerBoard.getDarkColor());
+                checkerBoard = new CheckerBoard(16, 16, checkerBoard.getWidth(), anchorPane.getHeight(), checkerBoard.getLightColor(), checkerBoard.getDarkColor());
                 break;
             case "board10x10":
-                checkerBoard = new CheckerBoard(10, 10, checkerBoard.getWidth(), checkerBoard.getHeight(), checkerBoard.getLightColor(), checkerBoard.getDarkColor());
+                checkerBoard = new CheckerBoard(10, 10, checkerBoard.getWidth(), anchorPane.getHeight(), checkerBoard.getLightColor(), checkerBoard.getDarkColor());
                 break;
             case "board8x8":
-                checkerBoard = new CheckerBoard(8, 8, checkerBoard.getWidth(), checkerBoard.getHeight(), checkerBoard.getLightColor(), checkerBoard.getDarkColor());
+                checkerBoard = new CheckerBoard(8, 8, checkerBoard.getWidth(), anchorPane.getHeight(), checkerBoard.getLightColor(), checkerBoard.getDarkColor());
                 break;
             case "board3x3":
-                checkerBoard = new CheckerBoard(3, 3, checkerBoard.getWidth(), checkerBoard.getHeight(), checkerBoard.getLightColor(), checkerBoard.getDarkColor());
+                checkerBoard = new CheckerBoard(3, 3, checkerBoard.getWidth(), anchorPane.getHeight(), checkerBoard.getLightColor(), checkerBoard.getDarkColor());
                 break;
             default:
                 break;
@@ -141,25 +128,21 @@ public class CheckerBoardFXMLController implements Initializable, Startable {
     }
 
     @FXML
-    private void changeColor(ActionEvent event) {
+    private void handleBoardColor(ActionEvent event) {
         MenuItem menuItem = (MenuItem) (event.getSource());
         menuItemId = menuItem.getId();
         numRows = checkerBoard.getNumRows();
         numCols = checkerBoard.getNumCols();
-        anchorWidth = checkerBoard.getWidth();
-        anchorHeight = checkerBoard.getHeight();
-        //if (checkerBoard.getBoard() != null) {
-            switch (menuItemId) {
-                case "redBlack":
-                    checkerBoard = new CheckerBoard(numRows, numCols, anchorWidth, anchorHeight, Color.RED, Color.BLACK);
-                    break;
-                case "blueDarkBlue":
-                    checkerBoard = new CheckerBoard(numRows, numCols, anchorWidth, anchorHeight, Color.SKYBLUE, Color.DARKBLUE);
-                    break;
-
-            }
-       // }
+        boardWidth = checkerBoard.getWidth();
+        boardHeight = anchorPane.getHeight();
+        switch (menuItemId) {
+            case "redBlack":
+                checkerBoard = new CheckerBoard(numRows, numCols, boardWidth, boardHeight, Color.RED, Color.BLACK);
+                break;
+            case "blueDarkBlue":
+                checkerBoard = new CheckerBoard(numRows, numCols, boardWidth, boardHeight, Color.SKYBLUE, Color.DARKBLUE);
+                break;
+        }
         refresh();
     }
-
 }

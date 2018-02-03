@@ -4,11 +4,15 @@
  * and open the template in the editor.
  */
 package checkerboard;
+
 import javafx.stage.Stage;
+
 /**
  *
- * @author Alyssa
+ * @author Alyssa Nielsen
+ *
  */
 public interface Startable {
-        public void start(Stage stage);
+
+    public void start(Stage stage);
 }

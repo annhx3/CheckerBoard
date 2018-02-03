@@ -6,39 +6,38 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="checkerboard.CheckerBoardFXMLController">
-   <children>
-      <MenuBar fx:id="menu">
-        <menus>
-          <Menu mnemonicParsing="false" text="Action">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleRefresh" text="Refresh" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleClear" text="Clear" />
-            </items>
-          </Menu>
-          
-      <Menu fx:id="size" mnemonicParsing="false" onAction="#changeSize" text="Grid">
-            <items>
-              <MenuItem fx:id="board16x16" mnemonicParsing="false" onAction="#changeSize" text="16 x 16" />
-                  <MenuItem fx:id="board10x10" mnemonicParsing="false" onAction="#changeSize" text="10 x 10" />
-                  <MenuItem fx:id="board8x8" mnemonicParsing="false" onAction="#changeSize" text="8 x 8" />
-                  <MenuItem fx:id="board3x3" mnemonicParsing="false" onAction="#changeSize" text="3 x 3" />
-            </items>
-          </Menu>
+<VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="checkerboard.CheckerBoardFXMLController">
+    <children>
+        <MenuBar fx:id="menu">
+            <menus>
+                <Menu mnemonicParsing="false" text="Action">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleRefresh" text="Refresh" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleClear" text="Clear" />
+                    </items>
+                </Menu>
+                <Menu fx:id="size" mnemonicParsing="false" onAction="#handleBoardSize" text="Grid">
+                    <items>
+                        <MenuItem fx:id="board16x16" mnemonicParsing="false" onAction="#handleBoardSize" text="16 x 16" />
+                        <MenuItem fx:id="board10x10" mnemonicParsing="false" onAction="#handleBoardSize" text="10 x 10" />
+                        <MenuItem fx:id="board8x8" mnemonicParsing="false" onAction="#handleBoardSize" text="8 x 8" />
+                        <MenuItem fx:id="board3x3" mnemonicParsing="false" onAction="#handleBoardSize" text="3 x 3" />
+                    </items>
+                </Menu>
 
-          <Menu fx:id="colorOptions" mnemonicParsing="false" onAction="#changeColor" text="Colors">
-            <items>
-              <MenuItem fx:id="redBlack" mnemonicParsing="false" onAction="#changeColor" text="Default" />
-                  <MenuItem fx:id="blueDarkBlue" mnemonicParsing="false" onAction="#changeColor" text="Blue" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <AnchorPane fx:id="anchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="600.0" VBox.vgrow="ALWAYS" />
-   </children>
+                <Menu fx:id="colorOptions" mnemonicParsing="false" onAction="#handleBoardColor" text="Colors">
+                    <items>
+                        <MenuItem fx:id="redBlack" mnemonicParsing="false" onAction="#handleBoardColor" text="Default" />
+                        <MenuItem fx:id="blueDarkBlue" mnemonicParsing="false" onAction="#handleBoardColor" text="Blue" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <AnchorPane fx:id="anchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="600.0" VBox.vgrow="ALWAYS" />
+    </children>
 </VBox>
